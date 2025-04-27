@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MySql | 技术架构文档</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/tech-arch-doc/favicon.ico">
+    <meta name="description" content="慢慢更新自己">
+    <meta name="robots" content="all">
+    <meta name="author" content="yichen">
+    <meta name="keywords" content="慢慢更新自己">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/tech-arch-doc/assets/css/0.styles.6f8ea171.css" as="style"><link rel="preload" href="/tech-arch-doc/assets/js/app.35a31877.js" as="script"><link rel="preload" href="/tech-arch-doc/assets/js/3.6300fe81.js" as="script"><link rel="preload" href="/tech-arch-doc/assets/js/1.b2b1d285.js" as="script"><link rel="preload" href="/tech-arch-doc/assets/js/34.203947d7.js" as="script"><link rel="prefetch" href="/tech-arch-doc/assets/js/10.4db7f56f.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/11.41cd359e.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/12.8aa3f4c4.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/13.5dac2404.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/14.180881c0.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/15.c8cc578b.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/16.df4b2853.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/17.deb5cd7b.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/18.8ec78fbb.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/19.c735e57e.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/20.9a5576fc.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/21.ee73878c.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/22.3f9fdd0d.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/23.9f822b3f.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/24.7b4a57aa.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/25.c3d0a1c1.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/26.7a52c2c6.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/27.a41a0143.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/28.f4ebddcf.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/29.25d443c5.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/30.38c77336.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/31.b37b2414.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/32.533ab70f.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/33.72c54223.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/35.c4f3bf2e.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/36.8186ad78.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/4.8d4be2ac.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/5.ea8adf64.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/6.a648e44f.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/7.70342f54.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/8.dc0e8e19.js"><link rel="prefetch" href="/tech-arch-doc/assets/js/9.add6ff23.js">
+    <link rel="stylesheet" href="/tech-arch-doc/assets/css/0.styles.6f8ea171.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-5bb33761><div data-v-5bb33761><div class="password-shadow password-wrapper-out" style="display:none;" data-v-59e6cb88 data-v-5bb33761 data-v-5bb33761><h3 class="title" data-v-59e6cb88>小破站</h3> <p class="description" data-v-59e6cb88>慢慢更新自己</p> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>yichencv@163.com</span>
+          
+        <span data-v-59e6cb88>2022 - </span>
+        2025
+      </a></span></div></div> <div class="hide" data-v-5bb33761><header class="navbar" data-v-5bb33761><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/tech-arch-doc/" class="home-link router-link-active"><img src="/tech-arch-doc/_images/tx.jpg" alt="技术架构文档" class="logo"> <span class="site-name">技术架构文档</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/tech-arch-doc/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><a href="/tech-arch-doc/tcharchmd/基础/导读.html" class="nav-link"><i class="iconfont reco-document"></i>
+  导读
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-coding"></i>
+      技术
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>前端</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/前端/vue.html" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li></ul></li><li class="dropdown-item"><h4>后端</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/Java.html" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/JavaWeb.html" class="nav-link"><i class="undefined"></i>
+  JavaWeb
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/Spring.html" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringMVC.html" class="nav-link"><i class="undefined"></i>
+  SpringMVC
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/MyBatis.html" class="nav-link"><i class="undefined"></i>
+  MyBatis
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringSSM.html" class="nav-link"><i class="undefined"></i>
+  Spring-SSM
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringBoot.html" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringCloud.html" class="nav-link"><i class="undefined"></i>
+  SpringCloud
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/UML.html" class="nav-link"><i class="undefined"></i>
+  UML
+</a></li></ul></li><li class="dropdown-item"><h4>数据库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/数据库/MySql.html" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li></ul></li><li class="dropdown-item"><h4>架构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/架构/设计模式.html" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></li><li class="dropdown-item"><h4>工具</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Git.html" class="nav-link"><i class="undefined"></i>
+  Git
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Docker.html" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Linux.html" class="nav-link"><i class="undefined"></i>
+  Linux
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Maven.html" class="nav-link"><i class="undefined"></i>
+  Maven
+</a></li></ul></li><li class="dropdown-item"><h4>面试</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/面试/interview-theory.html" class="nav-link"><i class="undefined"></i>
+  面试题
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-other"></i>
+      其它
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tech-arch-doc/tcharchmd/其它/高效法则.html" class="nav-link"><i class="undefined"></i>
+  高效法则
+</a></li><li class="dropdown-item"><!----> <a href="/tech-arch-doc/tcharchmd/其它/头脑风暴.html" class="nav-link"><i class="undefined"></i>
+  头脑风暴
+</a></li><li class="dropdown-item"><!----> <a href="/tech-arch-doc/tcharchmd/其它/反内耗：停止心理内耗才能变更强.html" class="nav-link"><i class="undefined"></i>
+  反内耗：停止心理内耗才能变更强
+</a></li></ul></div></div><div class="nav-item"><a href="/tech-arch-doc/tcharchmd/基础/关于.html" class="nav-link"><i class="iconfont reco-faq"></i>
+  关于
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-5bb33761></div> <aside class="sidebar" data-v-5bb33761><div class="personal-info-wrapper" data-v-1fad0c41 data-v-5bb33761><!----> <h3 class="name" data-v-1fad0c41>
+    yichencv@163.com
+  </h3> <div class="num" data-v-1fad0c41><div data-v-1fad0c41><h3 data-v-1fad0c41>23</h3> <h6 data-v-1fad0c41>文章</h6></div> <div data-v-1fad0c41><h3 data-v-1fad0c41>0</h3> <h6 data-v-1fad0c41>标签</h6></div></div> <ul class="social-links" data-v-1fad0c41></ul> <hr data-v-1fad0c41></div> <nav class="nav-links"><div class="nav-item"><a href="/tech-arch-doc/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><a href="/tech-arch-doc/tcharchmd/基础/导读.html" class="nav-link"><i class="iconfont reco-document"></i>
+  导读
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-coding"></i>
+      技术
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>前端</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/前端/vue.html" class="nav-link"><i class="undefined"></i>
+  Vue
+</a></li></ul></li><li class="dropdown-item"><h4>后端</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/Java.html" class="nav-link"><i class="undefined"></i>
+  Java
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/JavaWeb.html" class="nav-link"><i class="undefined"></i>
+  JavaWeb
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/Spring.html" class="nav-link"><i class="undefined"></i>
+  Spring
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringMVC.html" class="nav-link"><i class="undefined"></i>
+  SpringMVC
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/MyBatis.html" class="nav-link"><i class="undefined"></i>
+  MyBatis
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringSSM.html" class="nav-link"><i class="undefined"></i>
+  Spring-SSM
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringBoot.html" class="nav-link"><i class="undefined"></i>
+  SpringBoot
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/SpringCloud.html" class="nav-link"><i class="undefined"></i>
+  SpringCloud
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/后端/UML.html" class="nav-link"><i class="undefined"></i>
+  UML
+</a></li></ul></li><li class="dropdown-item"><h4>数据库</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/数据库/MySql.html" class="nav-link"><i class="undefined"></i>
+  MySQL
+</a></li></ul></li><li class="dropdown-item"><h4>架构</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/架构/设计模式.html" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></li><li class="dropdown-item"><h4>工具</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Git.html" class="nav-link"><i class="undefined"></i>
+  Git
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Docker.html" class="nav-link"><i class="undefined"></i>
+  Docker
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Linux.html" class="nav-link"><i class="undefined"></i>
+  Linux
+</a></li><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/工具/Maven.html" class="nav-link"><i class="undefined"></i>
+  Maven
+</a></li></ul></li><li class="dropdown-item"><h4>面试</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/tech-arch-doc/tcharchmd/技术/面试/interview-theory.html" class="nav-link"><i class="undefined"></i>
+  面试题
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-other"></i>
+      其它
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tech-arch-doc/tcharchmd/其它/高效法则.html" class="nav-link"><i class="undefined"></i>
+  高效法则
+</a></li><li class="dropdown-item"><!----> <a href="/tech-arch-doc/tcharchmd/其它/头脑风暴.html" class="nav-link"><i class="undefined"></i>
+  头脑风暴
+</a></li><li class="dropdown-item"><!----> <a href="/tech-arch-doc/tcharchmd/其它/反内耗：停止心理内耗才能变更强.html" class="nav-link"><i class="undefined"></i>
+  反内耗：停止心理内耗才能变更强
+</a></li></ul></div></div><div class="nav-item"><a href="/tech-arch-doc/tcharchmd/基础/关于.html" class="nav-link"><i class="iconfont reco-faq"></i>
+  关于
+</a></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-59e6cb88 data-v-5bb33761><h3 class="title" data-v-59e6cb88></h3> <!----> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>yichencv@163.com</span>
+          
+        <span data-v-59e6cb88>2022 - </span>
+        2025
+      </a></span></div></div> <div data-v-5bb33761><div data-v-5bb33761><main class="page"><section style="display:;"><div class="page-title"><h1 class="title">MySql</h1> <div data-v-8a445198><i class="iconfont reco-account" data-v-8a445198><span data-v-8a445198>yichencv@163.com</span></i> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default"><h1 id="mysql"><a href="#mysql" class="header-anchor">#</a> MySql</h1> <h3 id="建库"><a href="#建库" class="header-anchor">#</a> 建库</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>create database 库名;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>删库</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>drop database 表名;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>判断库是否存在 存在就删除</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>drop DATABASE if EXISTS 表名;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>使用数据库</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>use 库名;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>建表</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>create table 表名(
+    表结构
+) CHARSET=utf8;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>删除表</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>drop table users;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>彻底删除数据</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>RUNCATE  TABLE 表名; 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="表结构"><a href="#表结构" class="header-anchor">#</a> 表结构</h3> <p>主键 PRIMARY KEY
+自增长 auto_increment</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>uid int PRIMARY KEY auto_increment
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>非空约束 not null
+唯一约束 UNIQUE</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>upass varchar(255) not null 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>check约束 自定义约束 ( 注：不能使用可视化的方式设置 )
+age int CHECK(age&gt;0)</p> <p>外键约束 语法： FOREIGN key（从表字段） REFERENCES（主表字段);</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>CONSTRAINT fk_uid FOREIGN KEY(uid) REFERENCES users(uid);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="修改表结构"><a href="#修改表结构" class="header-anchor">#</a> 修改表结构</h3> <p>添加字段</p> <p>语法：alter 表名 add 字段名 数据类型 约束</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>alter table users add sex VARCHAR(10) CHECK(sex='男' or sex='女') 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>只能为男或者女（默认男）</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>enum('男','女') DEFAULT '男'  
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>修改字段名 和 约束
+alter table  表名 change 字段名 新字段名 数据类型 约束</p> <p>更新 语法：alter table  表名 MODIFY  字段名 数据类型 约束</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>alter table users MODIFY  sex varchar(255) DEFAULT '女'
+alter table users add country varchar(255) DEFAULT '中国'
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>删除字段</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>alter table users drop country
+show CREATE table users
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>添加外键</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>alter table orders add CONSTRAINT fk_pid FOREIGN key(pid) REFERENCES product(pid)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>删除外键</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>alter table orders drop FOREIGN key fk_pid
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>重命名</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>rename table orders to orders_shop
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="增"><a href="#增" class="header-anchor">#</a> 增</h3> <p>增加一条信息</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>INSERT INTO dept VALUES(9,'保卫部','负责公司日常安保工作')
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>一次增加多条信息</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>INSERT INTO NewsType VALUES
+(null,'军事'),
+(null,'社会'),
+(null,'国际'),
+(null,'体育'),
+(null,'科技'),
+(null,'财经'); 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h3 id="删"><a href="#删" class="header-anchor">#</a> 删</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>DELETE from dept WHERE dname='市场部'
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="改"><a href="#改" class="header-anchor">#</a> 改</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>UPDATE dept set dname='产品体验部' WHERE dname='体验部' 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="查"><a href="#查" class="header-anchor">#</a> 查</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * FROM emp WHERE address='广西'   
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="表连接"><a href="#表连接" class="header-anchor">#</a> 表连接</h4> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT *  from emp,dept WHERE empty.did=dept.did salary&gt;5000
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>查询员工信息 要求显示员工姓名 地址 薪水 职位</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT  字段  from emp,dept WHERE emp.did=dept.did
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>连接三张表</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp,dept,rank WHERE emp.did = dept.did and emp.rid = rank.rid 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>三张表中查询姓名 地址 薪水 职位名称</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT emp.uname 
+as 员工姓名,emp.address 地址,emp.salary 薪水,rank.rankName 
+as 职位名称 
+from emp,dept,rank 
+WHERE emp.did=dept.did and emp.rid=rank.rid 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="运算符"><a href="#运算符" class="header-anchor">#</a> 运算符</h3> <h4 id="算术运算符"><a href="#算术运算符" class="header-anchor">#</a> 算术运算符</h4> <p>( + - * / % )</p> <p>给每个salary+500</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>Update emp set salary=salary+500
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="比较运算符"><a href="#比较运算符" class="header-anchor">#</a> 比较运算符</h4> <p>( &gt; &lt; &gt;= &lt;= != &lt;&gt;  is not null  is null )</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE salary&gt;5000
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h4 id="逻辑运算符"><a href="#逻辑运算符" class="header-anchor">#</a> 逻辑运算符</h4> <p>add 和 并且( 一般用于多个条件的连接 多个条件同时满足 )</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE salary &gt;=5000 and salary &lt;=8000
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>BETWEEN and 在...之间</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE salary BETWEEN 5000 and 8000
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>判断</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>if(homeinfo.statu=0,'未出租','已出租') '出租状态'
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>Or (或者 满足一个条件就行)</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE salary&gt;=5000 or address=’温州’
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>In( 在...里面 )</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE address in(‘北京’,’上海’,’广州’,’深圳’)
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>As( 给别名 )</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT uname as 用户名,salary as 薪水,address 地址 from emp
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>DISTINC(过滤重复的值)</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT DISTINC 字段名 from 表名
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>模糊查询</p> <p>Like( %不管后面有多少字符都显示)
+通配符(%_%)</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from 表名 WHERE 字段名 like ‘张%’
+SELECT * from 表名 WHERE 字段名 like ‘%张’
+SELECT * from 表名 WHERE 字段名 like ‘%张%’
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><p>占位符</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from 表名 WHERE 字段名 like ‘张_’
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>ORDER BY(排序 默认是升序 降序：后面加desc)
+查找唐山地区的人以工资排名</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE address=‘唐山’ ORDER BY salary 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>查找唐山地区的人以工资排名 降序排序</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp WHERE address=‘唐山’ ORDER BY salary desc
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>多字段排序(第一个条件同时满足的情况下 以第二个条件进行排序)
+字段：salary  birthday
+以salary 降序排序 后以 birthday 升序</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp ORDER BY salary desc,birthday
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>Limit
+参数一：从第几条数据开始统计 0 代表第一条数据<br>
+参数二：统计多少条数据连接查询(内连接第一种查询多张表的数据 连接条件一般为外键 )
+SELECT *  from emp limit 参数一,参数二</p> <p>JOIN( 内连接第二种写法 ) 语法：SELECT * from 表名1 INNER JOIN 表2 on 连接条件</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT * from emp INNER JOIN dept on emp.did=dept.did
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>LEFT JOIN( 左连接 先将左表的数据全部查询出来 再连接查询右表 如果右表没有对应连接的数据 显示null 值)
+RIGHT JOIN( 右连接 先将右表的数据全部查询出来 再连接查询左表 如果左表没有对应连接的数据 显示null 值)</p> <p>聚合函数
+(Max：最大值  Min：最小值  Avg：平均值  Count：计数  Sum：求和)
+语法：SELECT max(字段) FROM 表名
+SELECT max(salary) 最高薪水,min(salary) 最低薪水 FROM emp</p> <p>GROUP BY （分组 一般配合聚合函数来使用 )
+语法：GROUP BY 字段名</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT MAX(salary),address FROM emp GROUP BY address
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>HAVING (分组之后再加条件 条件一般为聚合函数)</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>SELECT MAX(salary),address FROM emp GROUP BY address HAVING max(salary)&gt;8000
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>子查询</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>delete * from TransInfo 
+ where CardNo=(select CardNo from Account,TransInfo 
+where CustomerName='猪一群' ) 
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h3 id="mysql视图"><a href="#mysql视图" class="header-anchor">#</a> MySQL视图</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>-- 1.进入mysql数据库
+use mysql；
+-- 2.查看user表
+select * from user；
+-- 3.创建用户
+create user 'NameUser'@'localhost' identified by '123';
+-- 4.刷新权限
+flush privileges;
+-- 5.授权
+grant select,update,delete,insert on school.books to 'NameUser'@'localhost';
+-- 授权用户所有数据库和表的所有权限
+-- grant all privileges on *.* to 'NameUser'@'localhost';
+-- 6.回收权限 
+revoke ；
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><h3 id="定义存储过程的步骤"><a href="#定义存储过程的步骤" class="header-anchor">#</a> 定义存储过程的步骤</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>-- 1.如果存在就删除
+drop procedure pro_borrow;
+-- 2.定义结束符
+delimiter $$
+-- 3.创建存储过程
+create procedure pro_borrow()
+begin
+select * from borrow;
+end
+-- 4.结束
+$$
+-- 5.还原结束符
+delimiter ;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><h4 id="定义一个无参有返回值的存储过程-输出参数"><a href="#定义一个无参有返回值的存储过程-输出参数" class="header-anchor">#</a> 定义一个无参有返回值的存储过程(输出参数)</h4> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>-- 查询所有图书的平均价格。
+-- 删除
+drop procedure if exists pro_avg_price;
+-- 定义结束符
+delimiter $$
+-- 创建存储过程
+create procedure pro_avg_price()
+begin
+-- 执行业务
+select avg(price) into @price from books;
+end $$
+-- 还原结束符
+delimiter ;
+-- 定义用户变量，用来存储返回值
+set @price = 0.0;
+-- 调用存储过程
+call pro_avg_price();
+-- 查看结果
+select @price;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><h4 id="定义一个有参无返回值的存储过程-输入参数"><a href="#定义一个有参无返回值的存储过程-输入参数" class="header-anchor">#</a> 定义一个有参无返回值的存储过程(输入参数)</h4> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>-- 查询某个价格范围内的图书信息 20，50
+-- 1.删除
+drop procedure if exists pro_select_books;
+-- 2.定义结束符
+delimiter $$
+-- 3.创建存储过程
+create procedure pro_select_books(in price1 int,in price2 int)
+begin
+select * from books where price between price1 and price2;
+end $$
+-- 5.还原结束符
+delimiter ;
+-- 6.调用存储过程
+call pro_select_books(20,50);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><h3 id="变量"><a href="#变量" class="header-anchor">#</a> 变量</h3> <p>-- 1.全局变量：不能自定义，都是@@开头
+-- 2.用户变量：可以自定义，在当前数据库使用，一般都是@开头
+-- 2.1使用方式</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code> set @name = 'tom';
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>-- 2.2</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select @name := bname from books where bno = 1001;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>-- 2.3</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select bname into @name from books where bno = 1001;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>-- 3.局部变量：可以自定义，只能作用于begin-end之间，一般不用@开头</p> <p>分支结构
+if 条件  then
+语句块
+end  if；</p> <p>循环结构
+while 条件  do
+语句块
+end  while；</p> <h3 id="触发器"><a href="#触发器" class="header-anchor">#</a> 触发器</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>-- 触发器
+-- drop trigger if exists 触发器名称
+-- create trigger 触发器名称 {before|after} {insert|update|delete} on 表名 for each row
+-- begin
+-- 触发器执行的语句块
+-- End
+
+drop trigger if exists trigger_borrow
+create trigger trigger_borrow before insert on borrow for each row
+begin
+insert StuExam_log value(default,'insert',CURRENT_USER,NOW());
+end
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><p>sql</p> <p>-- 新建用户</p> <p>CREATE USER budget_wsfy IDENTIFIED BY budget_wsfy;</p> <p>-- 为用户授权</p> <p>GRANT connect,dba to budget_wsfy;</p> <p>-- 删除用户</p> <p>drop user budget_wsfy cascade;</p> <p>-- 流程</p> <p>ORA-01439: 要更改数据类型则要修改的列必须为空</p> <p>1、修改原字段名name为临时字段name_new；</p> <p>alter table ACT_HI_VARINST rename column TEXT_ to TEXT_1 ;</p> <p>2、添加一个新字段名称和原来字段名相同，name，类型为要修改的新类型；</p> <p>alter table ACT_HI_VARINST add(TEXT_ NVARCHAR2(2000));</p> <p>3、把临时字段name_new的数据更新到新添加的字段name中；</p> <p>update ACT_HI_VARINST set TEXT_ = trim(TEXT_1);</p> <p>4、删除临时字段name_new;</p> <p>alter table ACT_HI_VARINST drop column TEXT_1 ;</p> <p>-- 回滚</p> <p>alter table PD_BASE_SUBJECTINFO enable row movement;</p> <p>flashback table PD_BASE_SUBJECTINFO to timestamp TO_TIMESTAMP('2023-07-22 20:50:38', 'yyyy-mm-dd hh24:mi:ss');</p></div></section> <footer class="page-edit"><!----> <!----></footer> <!----> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-ac050c62><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#建库" class="sidebar-link reco-side-建库" data-v-ac050c62>建库</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#表结构" class="sidebar-link reco-side-表结构" data-v-ac050c62>表结构</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#修改表结构" class="sidebar-link reco-side-修改表结构" data-v-ac050c62>修改表结构</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#增" class="sidebar-link reco-side-增" data-v-ac050c62>增</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#删" class="sidebar-link reco-side-删" data-v-ac050c62>删</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#改" class="sidebar-link reco-side-改" data-v-ac050c62>改</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#查" class="sidebar-link reco-side-查" data-v-ac050c62>查</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#运算符" class="sidebar-link reco-side-运算符" data-v-ac050c62>运算符</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#mysql视图" class="sidebar-link reco-side-mysql视图" data-v-ac050c62>MySQL视图</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#定义存储过程的步骤" class="sidebar-link reco-side-定义存储过程的步骤" data-v-ac050c62>定义存储过程的步骤</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#变量" class="sidebar-link reco-side-变量" data-v-ac050c62>变量</a></li><li class="level-3" data-v-ac050c62><a href="/tech-arch-doc/tcharchmd/%E6%8A%80%E6%9C%AF/%E6%95%B0%E6%8D%AE%E5%BA%93/MySql.html#触发器" class="sidebar-link reco-side-触发器" data-v-ac050c62>触发器</a></li></ul></main></div> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div></div></div>
+    <script src="/tech-arch-doc/assets/js/app.35a31877.js" defer></script><script src="/tech-arch-doc/assets/js/3.6300fe81.js" defer></script><script src="/tech-arch-doc/assets/js/1.b2b1d285.js" defer></script><script src="/tech-arch-doc/assets/js/34.203947d7.js" defer></script>
+  </body>
+</html>
